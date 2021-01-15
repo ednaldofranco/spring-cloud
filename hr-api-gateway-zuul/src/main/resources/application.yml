@@ -1,0 +1,39 @@
+server:
+  port: 8765
+
+spring:
+  application:
+    name: hr-api-gateway-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://hr-eureka-server:8761/eureka'
+
+zuul:
+  routes:
+    worker:
+      serviceId: 'hr-worker'
+      path: '/hr-worker/**'
+    payroll:
+      serviceId: 'hr-payroll'
+      path: '/hr-payroll/**'
+    user:
+      serviceId: 'hr-user'
+      path: '/hr-user/**'
+    oauth:
+      serviceId: 'hr-oauth'
+      path: '/hr-oauth/**'
+      sensitive-headers: Cookie,Set-Cookie
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 90000
+
+ribbon:
+  ConnectTimeout: 10000
+  ReadTimeout: 20000

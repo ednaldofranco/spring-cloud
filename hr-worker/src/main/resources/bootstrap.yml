@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: hr-worker
+  profiles:
+      active: prod
+  cloud:
+    config:
+      uri: 'http://hr-config-server:8888'
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
